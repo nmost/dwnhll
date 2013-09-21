@@ -2,7 +2,8 @@
  * Constants
  */
 
-var MONGODB_URL = 'mongodb://localhost/test';
+var MONGODB_URL = process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 
 /**
  * Module dependencies.
@@ -101,7 +102,7 @@ app.get('/route/:startLoc/:endLoc', function(req, res){
                 startLocMatches[0].coords.lat + "," + startLocMatches[0].coords.lng,
                 endLocMatches[0].coords.lat + "," + endLocMatches[0].coords.lng,
                 function(err, data) {
-                  //quantify and return the best one!
+                  console.log(data);
                 },
                 false,
                 "driving",
