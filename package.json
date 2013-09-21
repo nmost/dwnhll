@@ -1,0 +1,13 @@
+{
+    "name": "dwnhll"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.5.8"
+    , "stylus": ">= 0.0.1"
+    , "nib": "*"
+    , "mongoose": "*"
+    , "googlemaps": "*"
+    , "jade": ">= 0.0.1"
+  }
+}

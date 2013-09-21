@@ -1,0 +1,18 @@
+script(type="text/javascript" src="/javascripts/jquery-1.10.2.js")
+script(type="text/javascript" src="/javascripts/index.js")
+introPage
+  h1= title
+  p sup dude. enter stuff:
+  p#messagingtext I want to go
+  input#startLoc(type="text", placeholder="from here")
+  input#endLoc(type="text", placeholder="to here")
+  br
+  button#submitButton go
+
+mapPage.hidden
+  mapHeader.mapHeader
+    backLink#backLink.backLink  back
+    favLink#favLink.favLink  fav
+    shareLink#shareLink.shareLink  share
+    quitLink#quitLink.quitLink  quit
+  mapContainer
