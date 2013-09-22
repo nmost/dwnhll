@@ -17,9 +17,19 @@ body {
   margin-left: 150px;
   display: inline-block;
   padding: 20px;
+  background: rgba(0,0,0,0.1);
+}
+.mapPage {
+  height: 87%;
+  padding: 1%;
+  top: 0;
+  left: 3%;
+  margin-top: 2%;
+  width: 92%;
+  position: absolute;
+  background: rgba(0,0,0,0.4);
 }
 #containerDiv {
-  background: rgba(0,0,0,0.1);
   border-radius: 20px;
 }
 h1 {
@@ -64,6 +74,31 @@ p {
 }
 #submitButton:active {
   box-shadow: inset 0px 0px 1px 1px #000;
+}
+.backLink {
+  float: left;
+}
+.reportLink {
+  float: right;
+  color: #f00;
+  margin-right: 20px;
+}
+.shareLink {
+  float: right;
+}
+#mapContainer {
+  width: 1400px;
+  height: 559px;
+  position: relative;
+  display: inline-block;
+  margin: 10px auto 0;
+  padding: 0;
+  background: url("/images/dummyMap.jpg") no-repeat center center fixed;
+}
+#fakeData {
+  margin-left: 450px;
+  position: relative;
+  display: inline-block;
 }
 .hidden {
   display: none;
