@@ -14,7 +14,7 @@ var express = require('express')
   , mongoose = require('mongoose');
 
 gm.config("encode-polylines", false);
-gm.config("google-private-key", process.env.MAPS_API_KEY);
+gm.config("google-private-key", "AIzaSyAOy7IXmTYPF5MjRmwdvIpea_kU61MSE6A");//process.env.MAPS_API_KEY);
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -119,17 +119,21 @@ app.get('/route/:startLoc/:endLoc', function(req, res){
                   var samples;
                   var i = 0;
                   for (var i = 0; i < data.routes.length; i++) {
+                    scores[i] = 0;
                     (function(i) {
                       samples = Math.ceil(data.routes[i].legs[0].distance.value/250);
-                      samples = samples > 100 ? 100 : samples;
+                      samples = samples > 10 ? 10 : samples; //CHANGE THIS
                       gm.elevationFromPath("enc:" + data.routes[i].overview_polyline.points,
                         samples,
-                        function(err, data) {
-                          scores[i] = 0;
-                          for (var k = 1; k < data.results.length; k++) {
-                            delta = data.results[k].elevation - data.results[k-1].elevation;
+                        function(err, data2) {
+                          for (var k = 1; k < data2.results.length; k++) {
+                            delta = data2.results[k].elevation - data2.results[k-1].elevation;
                             scores[i] += delta > 0 ? delta * 1.5 : delta;
                           }
+                          console.log(data2);
+                          //if ((i + 1) == newdata.routes.length) {
+                            //console.log(scores);
+                          //}
                         }, false);
                     })(i);
                   }
