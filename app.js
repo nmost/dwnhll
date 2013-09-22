@@ -14,7 +14,7 @@ var express = require('express')
   , mongoose = require('mongoose');
 
 gm.config("encode-polylines", false);
-gm.config("google-private-key", "AIzaSyAOy7IXmTYPF5MjRmwdvIpea_kU61MSE6A");//process.env.MAPS_API_KEY);
+gm.config("google-private-key", process.env.MAPS_API_KEY);
 var app = module.exports = express.createServer();
 
 // Configuration
