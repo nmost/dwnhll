@@ -21,5 +21,6 @@ $(function(){
     $("#containerDiv").switchClass("introPage", "mapPage", 750, "easeInOutCubic");
     $("#introPage").html("").addClass("hidden");
     $("#mapPage").removeClass("hidden");
+    $("#mapContainer").removeClass("hidden");
   }
 });
