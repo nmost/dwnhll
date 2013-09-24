@@ -110,30 +110,37 @@ app.get('/route/:startLoc/:endLoc', function(req, res){
               gm.directions(
                 startLocMatches[0].coords.lat + "," + startLocMatches[0].coords.lng,
                 endLocMatches[0].coords.lat + "," + endLocMatches[0].coords.lng,
-                function(err, data) {
-                  if (!data || !data.routes || err) {
+                function(err, directionsData) {
+                  if (!directionsData || !directionsData.routes || err) {
                     return;
                   }
                   var scores = [];
                   var delta = 0;
                   var samples;
                   var i = 0;
-                  for (var i = 0; i < data.routes.length; i++) {
+                  for (var i = 0; i < directionsData.routes.length; i++) {
                     scores[i] = 0;
                     (function(i) {
-                      samples = Math.ceil(data.routes[i].legs[0].distance.value/250);
-                      samples = samples > 10 ? 10 : samples; //CHANGE THIS
-                      gm.elevationFromPath("enc:" + data.routes[i].overview_polyline.points,
+                      samples = Math.ceil(directionsData.routes[i].legs[0].distance.value/250);
+                      samples = samples > 10 ? 10 : samples; //TODO:CHANGE THIS to something fucking reasonable
+                      gm.elevationFromPath("enc:" + directionsData.routes[i].overview_polyline.points,
                         samples,
-                        function(err, data2) {
-                          for (var k = 1; k < data2.results.length; k++) {
-                            delta = data2.results[k].elevation - data2.results[k-1].elevation;
+                        function(err, elevationData) {
+                          for (var k = 1; k < elevationData.results.length; k++) { //TODO better score tabulation algo
+                            delta = elevationData.results[k].elevation - elevationData.results[k-1].elevation;
                             scores[i] += delta > 0 ? delta * 1.5 : delta;
                           }
-                          console.log(data2);
-                          //if ((i + 1) == newdata.routes.length) {
-                            //console.log(scores);
-                          //}
+                          if (scores.length == i+1) {
+                            var currMax = Number.NEGATIVE_INFINITY;
+                            var maxArrLocation = 0;
+                            for (var l = 0; l < scores.length; l++) {
+                              if (scores[i] > currMax) {
+                                currMax = scores[i];
+                                maxArrLocation = i;
+                              }
+                            }
+                            console.log(directionsData.routes[maxArrLocation]);
+                          }
                         }, false);
                     })(i);
                   }
